@@ -13,7 +13,7 @@ class LinkedListTest {
         _list = new LinkedList<>();
         _list.add(0);
         _list.add(1);
-        _list.add(3);
+        _list.add(2);
     }
 
     @AfterEach
@@ -23,14 +23,26 @@ class LinkedListTest {
 
     @Test
     void testAdd() {
-        assertEquals("{0, 1, 3}", _list.toString());
+        assertEquals("{0, 1, 2}", _list.toString());
+        assertEquals(0, _list.get(0));
+        assertEquals(1, _list.get(1));
+        assertEquals(2, _list.get(2));
     }
 
     @Test
     void testGet() {
         assertEquals(0, _list.get(0));
         assertEquals(1, _list.get(1));
-        assertEquals(3, _list.get(2));
+        assertEquals(2, _list.get(2));
+    }
+
+    @Test
+    void testGetThrowsOutOfBoundsExceptionWhenIndexIsOutOfRange() {
+        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            _list.get(100);
+        });
+
+        assertEquals("Index [100] out of bounds, size: 2", exception.getMessage());
     }
 
     @Test
@@ -39,6 +51,22 @@ class LinkedListTest {
            _list.get(-1);
         });
 
-        System.out.println(exception);
+        assertEquals("Index [-1] has to be a positive number", exception.getMessage());
+    }
+
+    @Test
+    void testRemove() {
+        assertEquals(1, _list.get(1));
+        _list.remove(1);
+        assertEquals(2, _list.get(1));
+    }
+
+    @Test
+    void testRemoveThrowsOutOfBoundsExceptionWhenIndexIsOutOfRange() {
+        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            _list.remove(100);
+        });
+
+        assertEquals("Index [100] out of bounds, size: 3", exception.getMessage());
     }
 }
