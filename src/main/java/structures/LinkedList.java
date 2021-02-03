@@ -26,7 +26,7 @@ public class LinkedList<T> {
      * adds given element {T elem}
      * time completexity: O(n)
      * space complexity: O(1)
-     * @param index
+     * @param elem
      */
     public void add(T elem) {
         Node<T> current = _head;
