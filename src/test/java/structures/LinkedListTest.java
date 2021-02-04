@@ -24,6 +24,7 @@ class LinkedListTest {
     @Test
     void testAdd() {
         assertEquals("{0, 1, 2}", _list.toString());
+        assertEquals(3, _list.size());
         assertEquals(0, _list.get(0));
         assertEquals(1, _list.get(1));
         assertEquals(2, _list.get(2));
@@ -31,6 +32,7 @@ class LinkedListTest {
 
     @Test
     void testGet() {
+        assertEquals(3, _list.size());
         assertEquals(0, _list.get(0));
         assertEquals(1, _list.get(1));
         assertEquals(2, _list.get(2));
@@ -56,8 +58,10 @@ class LinkedListTest {
 
     @Test
     void testRemove() {
+        assertEquals(3, _list.size());
         assertEquals(1, _list.get(1));
         _list.remove(1);
+        assertEquals(2, _list.size());
         assertEquals(2, _list.get(1));
     }
 

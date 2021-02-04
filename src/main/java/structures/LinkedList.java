@@ -1,6 +1,6 @@
 package structures;
 
-public class LinkedList<T> {
+public class LinkedList<T>{
     private class Node<T> {
         T value;
         Node<T> next;
@@ -95,6 +95,16 @@ public class LinkedList<T> {
             throw new IndexOutOfBoundsException(String.format("Index [%s] out of bounds, size: %d", index, counter));
         }
         currentNode.next = currentNode.next.next;
+    }
+
+    public int size() {
+        int counter = 0;
+        Node<T> currentNode = _head;
+        while(currentNode != null) {
+            counter++;
+            currentNode = currentNode.next;
+        }
+        return counter;
     }
 
 
