@@ -3,6 +3,9 @@ package structures;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedListTest {
@@ -72,5 +75,13 @@ class LinkedListTest {
         });
 
         assertEquals("Index [100] out of bounds, size: 3", exception.getMessage());
+    }
+
+    @Test
+    void testRemoveDups() {
+        _list.add(2);
+        assertEquals(4, _list.size());
+        _list.removeDups();
+        assertEquals(3, _list.size());
     }
 }

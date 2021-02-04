@@ -107,6 +107,19 @@ public class LinkedList<T>{
         return counter;
     }
 
+    public void removeDups() {
+        if (_head == null) return;
+
+        Node<T> current = _head;
+        while (current.next != null) {
+            if (current.value == current.next.value) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
 
     @Override
     public String toString() {
