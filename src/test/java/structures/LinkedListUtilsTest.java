@@ -42,7 +42,18 @@ class LinkedListUtilsTest {
 
         LinkedListUtils.removeDups(list5);
         assertEquals(4, list5.size());
+    }
 
-
+    @Test
+    void testReverse() {//todo add more scenarios
+        LinkedList<Integer> list = new LinkedList<>(1, 2, 3);
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
+        LinkedListUtils.reverse(list);
+        assertEquals(3, list.size());
+        assertEquals(3, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(1, list.get(2));
     }
 }
