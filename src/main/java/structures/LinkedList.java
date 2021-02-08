@@ -1,13 +1,19 @@
 package structures;
 
-public class LinkedList<T>{
-    private class Node<T> {
-        T value;
-        Node<T> next;
+import java.util.stream.Stream;
+
+public class LinkedList<E>{
+    public LinkedList(E... elems) {
+        Stream.of(elems).forEach(e -> add(e));
+    }
+
+    protected class Node<E> {
+        E value;
+        Node<E> next;
 
         public Node() {}
 
-        public Node(T value) {
+        public Node(E value) {
             this.value = value;
         }
 
@@ -20,16 +26,16 @@ public class LinkedList<T>{
         }
     }
 
-    Node<T> _head;
+    Node<E> _head;
 
     /**
-     * adds given element {T elem}
+     * adds given element {E elem}
      * time completexity: O(n)
      * space complexity: O(1)
      * @param elem
      */
-    public void add(T elem) {
-        Node<T> current = _head;
+    public void add(E elem) {
+        Node<E> current = _head;
         if (current == null) {
             _head = new Node<>(elem);
             return;
@@ -49,13 +55,13 @@ public class LinkedList<T>{
      * @param index
      * @return
      */
-    public T get(int index) {
+    public E get(int index) {
         if (index < 0) {
             throw new IndexOutOfBoundsException(String.format("Index [%s] has to be a positive number", index));
         }
 
         int counter = 0;
-        Node<T> currentNode = _head;
+        Node<E> currentNode = _head;
         while(counter < index) {
             if (currentNode.next == null) {
                 throw new IndexOutOfBoundsException(String.format("Index [%s] out of bounds, size: %d", index, counter));
@@ -82,7 +88,7 @@ public class LinkedList<T>{
         }
 
         int counter = 1;
-        Node<T> currentNode = _head;
+        Node<E> currentNode = _head;
         while (counter < index) {
             if (currentNode.next == null) {
                 throw new IndexOutOfBoundsException(String.format("Index [%s] out of bounds, size: %d", index, counter));
@@ -99,27 +105,13 @@ public class LinkedList<T>{
 
     public int size() {
         int counter = 0;
-        Node<T> currentNode = _head;
+        Node<E> currentNode = _head;
         while(currentNode != null) {
             counter++;
             currentNode = currentNode.next;
         }
         return counter;
     }
-
-    public void removeDups() {
-        if (_head == null) return;
-
-        Node<T> current = _head;
-        while (current.next != null) {
-            if (current.value == current.next.value) {
-                current.next = current.next.next;
-            } else {
-                current = current.next;
-            }
-        }
-    }
-
 
     @Override
     public String toString() {
@@ -129,7 +121,7 @@ public class LinkedList<T>{
         StringBuilder sb = new StringBuilder("{");
         sb.append(_head.value);
 
-        Node<T> current = _head;
+        Node<E> current = _head;
         while(current.next != null) {
             sb.append(", ");
             current = current.next;
