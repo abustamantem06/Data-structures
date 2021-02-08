@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class LinkedListUtilsTest {
 
     @Test
-    void testRemoveDups(int initial, int reduced, Integer... values) {
+    void testRemoveDups() {
         //scenario 1
-        LinkedList<Integer> list = new LinkedList<>(values);
-        assertEquals(initial, list.size());
+        LinkedList<Integer> list = new LinkedList<>(1, 1, 2, 3);
+        assertEquals(4, list.size());
 
         LinkedListUtils.removeDups(list);
-        assertEquals(reduced, list.size());
+        assertEquals(3, list.size());
 
         //scenario 2
         LinkedList<Integer> list2 = new LinkedList<>(0, 1, 1, 3);
