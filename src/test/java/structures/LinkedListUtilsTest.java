@@ -1,59 +1,53 @@
 package structures;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class LinkedListUtilsTest {
 
-    @Test
-    void testRemoveDups() {
+    @ParameterizedTest
+    @MethodSource("parametersRemoveDups")
+    void testRemoveDups(int expectedSizeAfterRemoval, List<Integer> values) {
         //scenario 1
-        LinkedList<Integer> list = new LinkedList<>(1, 1, 2, 3);
+        LinkedList<Integer> list = new LinkedList<Integer>(values);
         assertEquals(4, list.size());
 
         LinkedListUtils.removeDups(list);
-        assertEquals(3, list.size());
-
-        //scenario 2
-        LinkedList<Integer> list2 = new LinkedList<>(0, 1, 1, 3);
-        assertEquals(4, list2.size());
-
-        LinkedListUtils.removeDups(list2);
-        assertEquals(3, list2.size());
-
-        //scenario 3
-        LinkedList<Integer> list3 = new LinkedList<>(1, 2, 3, 3);
-        assertEquals(4, list3.size());
-
-        LinkedListUtils.removeDups(list3);
-        assertEquals(3, list3.size());
-
-        //scenario 4
-        LinkedList<Integer> list4 = new LinkedList<>(3, 3, 3, 3);
-        assertEquals(4, list4.size());
-
-        LinkedListUtils.removeDups(list4);
-        assertEquals(1, list4.size());
-
-        //scenario 5
-        LinkedList<Integer> list5 = new LinkedList<>(1, 2, 3, 4);
-        assertEquals(4, list5.size());
-
-        LinkedListUtils.removeDups(list5);
-        assertEquals(4, list5.size());
+        assertEquals(expectedSizeAfterRemoval, list.size());
     }
 
-    @Test
-    void testReverse() {//todo add more scenarios
-        LinkedList<Integer> list = new LinkedList<>(1, 2, 3);
-        assertEquals(1, list.get(0));
-        assertEquals(2, list.get(1));
-        assertEquals(3, list.get(2));
-        LinkedListUtils.reverse(list);
-        assertEquals(3, list.size());
-        assertEquals(3, list.get(0));
-        assertEquals(2, list.get(1));
-        assertEquals(1, list.get(2));
+    private static Stream<Arguments> parametersRemoveDups() {
+        return Stream.of(
+                arguments(1, Arrays.asList(3, 3, 3, 3)),
+                arguments(3, Arrays.asList(1, 1, 2, 3)),
+                arguments(3, Arrays.asList(1, 2, 3, 3)),
+                arguments(3, Arrays.asList(1, 1, 2, 3)),
+                arguments(4, Arrays.asList(1, 2, 3, 4))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersReverse")
+    void testReverse(LinkedList<Integer> expectedLinkedList, LinkedList<Integer> linkedList) {
+        LinkedListUtils.reverse(linkedList);
+
+        assertEquals(expectedLinkedList, linkedList);
+    }
+
+    private static Stream<Arguments> parametersReverse() {
+        return Stream.of(
+          arguments(new LinkedList<Integer>(Arrays.asList(1, 2, 3)), new LinkedList<Integer>(Arrays.asList(3, 2, 1))),
+          arguments(new LinkedList<Integer>(Arrays.asList(1)), new LinkedList<Integer>(Arrays.asList(1))),
+          arguments(new LinkedList<Integer>(Arrays.asList()), new LinkedList<Integer>(Arrays.asList()))
+        );
     }
 }

@@ -1,10 +1,10 @@
 package structures;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 public class LinkedList<E>{
-    public LinkedList(E... elems) {
-        Stream.of(elems).forEach(e -> add(e));
+    public LinkedList(List<E> elems) {
+        elems.stream().forEach(e -> add(e));
     }
 
     protected class Node<E> {
@@ -23,6 +23,14 @@ public class LinkedList<E>{
                     "value=" + value +
                     ", next=" + next +
                     '}';
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof Node) {
+                return this.value.equals(((Node<E>) obj).value);
+            }
+            return false;
         }
     }
 
@@ -130,5 +138,26 @@ public class LinkedList<E>{
 
         sb.append("}");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof LinkedList) {
+            LinkedList list = (LinkedList) obj;
+            if (this._head != null && list._head != null) {
+                Node<E> currentNode = this._head;
+                Node<E> otherListCurrentNode = list._head;
+                while(currentNode != null && otherListCurrentNode != null && currentNode.equals(otherListCurrentNode)) {
+                    otherListCurrentNode = otherListCurrentNode.next;
+                    currentNode = currentNode.next;
+
+                    if (currentNode == null && otherListCurrentNode == null) {
+                        return true;
+                    }
+                }
+            }
+            return this._head == list._head;
+        }
+        return false;
     }
 }

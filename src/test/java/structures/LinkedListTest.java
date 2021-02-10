@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedListTest {
@@ -11,10 +13,7 @@ class LinkedListTest {
 
     @BeforeEach
     void setup() {
-        _list = new LinkedList<>();
-        _list.add(0);
-        _list.add(1);
-        _list.add(2);
+        _list = new LinkedList<>(Arrays.asList(0, 1, 2));
     }
 
     @AfterEach
